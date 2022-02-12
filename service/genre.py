@@ -1,4 +1,5 @@
 from dao.genre import GenreDAO
+from flask import request
 
 
 class GenreService:
@@ -11,12 +12,14 @@ class GenreService:
     def get_all(self):
         return self.dao.get_all()
 
-    def create(self, genre_d):
-        return self.dao.create(genre_d)
+    def create(self):
+        data = request.json
+        return self.dao.create(data)
 
-    def update(self, genre_d):
-        self.dao.update(genre_d)
-        return self.dao
+    def update(self, rid):
+        data = request.json
+        self.dao.update(data, rid)
+        return self.dao.update(data, rid)
 
     def delete(self, rid):
         self.dao.delete(rid)

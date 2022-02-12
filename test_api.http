@@ -43,7 +43,7 @@ Accept: application/json
 
 ###
 
-POST http://127.0.0.1:10001/movies/
+POST http://127.0.0.1:5000/movies/
 Accept: application/json
 Content-Type: application/json
 
