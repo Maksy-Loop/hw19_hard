@@ -1,5 +1,4 @@
 from dao.director import DirectorDAO
-from flask import request
 
 
 class DirectorService:
@@ -12,12 +11,10 @@ class DirectorService:
     def get_all(self):
         return self.dao.get_all()
 
-    def create(self):
-        data = request.json
+    def create(self, data):
         return self.dao.create(data)
 
-    def update(self, rid):
-        data = request.json
+    def update(self, rid, data):
 
         return self.dao.update(data, rid)
 

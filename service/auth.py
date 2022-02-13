@@ -4,8 +4,6 @@ import hmac
 import datetime
 import calendar
 import jwt
-import json
-from flask import request
 from constants import PWD_HASH_ITERATIONS, PWD_HASH_SALT
 from config import Config
 from dao.user import UserDAO
@@ -15,8 +13,8 @@ class AuthService:
     def __init__(self, dao: UserDAO):
         self.dao = dao
 
-    def create_tokens(self):
-        data = request.json
+    def create_tokens(self, data):
+
         username = data.get("username", None)
         password = data.get("password", None)
 
@@ -48,11 +46,10 @@ class AuthService:
 
 
         except Exception as e:
-            return f"Неверный пользователь или паролль", 401
+            return f"Неверный пользователь или паролль"
 
-    def create_tokens_with_rt(self):
+    def create_tokens_with_rt(self, data):
         try:
-            data = request.json
             refresh_token = data.get("refresh_token", None)
 
             data_dict = jwt.decode(refresh_token, Config.SECRET_HERE, algorithms=[Config.ALGO])
@@ -76,7 +73,7 @@ class AuthService:
 
             }
         except Exception as e:
-            return f"Неверный токен", 401
+            return f"Неверный токен"
 
 
 

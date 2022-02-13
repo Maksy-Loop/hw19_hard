@@ -1,4 +1,5 @@
 from flask_restx import Resource, Namespace
+from flask import request
 
 from dao.model.genre import GenreSchema
 from implemented import genre_service
@@ -17,7 +18,8 @@ class GenresView(Resource):
 
     @admin_required
     def post(self):
-        genre_service.create()
+        data = request.json
+        genre_service.create(data)
         return "done", 201
 
 
@@ -31,7 +33,8 @@ class GenreView(Resource):
 
     @admin_required
     def put(self, rid):
-        genre_service.update(rid)
+        data = request.json
+        genre_service.update(rid, data)
 
         return "done", 204
 

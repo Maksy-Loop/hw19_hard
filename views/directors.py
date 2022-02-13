@@ -1,3 +1,4 @@
+from flask import request
 from flask_restx import Resource, Namespace
 
 from dao.model.director import DirectorSchema
@@ -17,7 +18,8 @@ class DirectorsView(Resource):
         return res, 200
     @admin_required
     def post(self):
-        director_service.create()
+        data = request.json
+        director_service.create(data)
 
         return "done", 200
 
@@ -33,7 +35,8 @@ class DirectorView(Resource):
 
     @admin_required
     def put(self, rid):
-        director_service.update(rid)
+        data = request.json
+        director_service.update(rid, data)
 
         return "", 204
 
